@@ -2,9 +2,6 @@ package com.axis.axis_hotels_api.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Set;
 
 @AllArgsConstructor
 @Getter
