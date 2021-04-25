@@ -14,9 +14,8 @@ import static com.axis.axis_hotels_api.security.ApplicationUserPermission.*;
 @AllArgsConstructor
 @Getter
 public enum ApplicationUserRole {
-    STUDENT(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(COURSE_READ, COURSE_WRITE, STUDENT_WRITE, STUDENT_READ)),
-    ADMINTRAINEE(Sets.newHashSet(COURSE_READ, STUDENT_READ));
+    USER(Sets.newHashSet()),
+    ADMIN(Sets.newHashSet());
 
     private final Set<ApplicationUserPermission> permissions;
 

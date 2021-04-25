@@ -30,6 +30,14 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
         this.jwtConfig = jwtConfig;
     }
 
+    /**
+     * @description Responsible for the token validation of the request, if the token is valid and represent a session of one of ours users, the token makes the request made by the user
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());

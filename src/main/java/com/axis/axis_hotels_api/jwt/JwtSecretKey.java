@@ -12,6 +12,9 @@ import javax.crypto.SecretKey;
 public class JwtSecretKey {
     private final JwtConfig jwtConfig;
 
+    /**
+     * @return the encoded secret key of Jwt
+     */
     @Bean
     public SecretKey SecretKey() {
         return Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes());

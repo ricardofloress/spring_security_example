@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.crypto.SecretKey;
@@ -29,6 +30,13 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         this.secretKey = secretKey;
     }
 
+    /**
+     * @description Authentication with our class UsernamePasswordAuthenticationToken passed on the request
+     * @param request
+     * @param response
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
@@ -45,6 +53,16 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         }
     }
 
+
+    /**
+     * @description Generation of JWT login token for user that has been authenticated
+     * @param request
+     * @param response
+     * @param chain
+     * @param authResult
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         String token = Jwts.builder()
@@ -56,5 +74,10 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
                 .compact();
 
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix()  + token);
+    }
+
+    @Override
+    public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
+        super.setAuthenticationSuccessHandler(successHandler);
     }
 }
